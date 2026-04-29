@@ -1,0 +1,333 @@
+/* ============================================================
+   PASTE THIS ENTIRE FILE INTO CARGO'S "CSS" FIELD
+   The @import must stay on the first line.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500&display=swap');
+
+/* =========================================================
+   THEME TOKENS — adjust to taste
+   ========================================================= */
+:root {
+  --bg:            #faf8f3;   /* page background — soft warm white */
+  --pill:          #e8e5dc;   /* neutral warm gray pill */
+  --pill-hover:    #ddd9cd;
+  --pill-active:   #1a1a1a;   /* active filter dot */
+  --text:          #1a1a1a;
+  --text-muted:    #9b9892;   /* bio paragraph color */
+  --card-radius:   20px;      /* corner radius on project cards */
+  --info-radius:   12px;      /* corner radius on info card overlay */
+  --pill-radius:   100px;
+  --gap:           18px;      /* gap between projects */
+  --bio-gap:       140px;     /* space between "DAYNA SON" and bio text */
+}
+
+/* =========================================================
+   RESET + BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: 'Shandon Slab', 'Roboto Slab', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  min-height: 100vh;
+  padding: 36px 40px 88px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 200px;
+  gap: 72px;
+  max-width: 1900px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   LEFT — BIO
+   ========================================================= */
+.bio {
+  position: sticky;
+  top: 36px;
+  align-self: start;
+}
+
+.bio h1 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--bio-gap);
+}
+
+.bio h1[contenteditable]:focus { outline: none; }
+
+.bio-section {
+  margin-bottom: 24px;
+  color: var(--text-muted);
+  max-width: 290px;
+}
+
+.bio-section p { margin: 0; }
+
+.bio-section strong,
+.bio-section a {
+  color: var(--text);
+  font-weight: 400;
+}
+
+.bio-section a:hover { border-bottom: 1px solid currentColor; }
+
+.bio-section[contenteditable]:focus { outline: none; }
+
+/* =========================================================
+   CENTER — PROJECTS
+   ========================================================= */
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-content: flex-start;
+}
+
+.project {
+  position: relative;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: #d8d4c8;
+  cursor: pointer;
+  transition: opacity 0.35s ease;
+}
+
+/* Wide = full column width, 16:9 */
+.project.wide {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/* Third = 1/3 column width, 16:9 (three fit per row) */
+.project.third {
+  width: calc((100% - (var(--gap) * 2)) / 3);
+  aspect-ratio: 16 / 9;
+}
+
+/* Style images, videos, AND Cargo's <media-item> custom element */
+.project img,
+.project video,
+.project media-item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+/* Cargo's <media-item> uses Shadow DOM — target inner element via ::part */
+.project media-item::part(media) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project:hover img,
+.project:hover video,
+.project:hover media-item {
+  transform: scale(1.015);
+}
+
+.project.is-hidden  { display: none; }
+.project.dragging   { opacity: 0.35; cursor: grabbing; }
+.project.drag-over  { outline: 2px solid rgba(26,26,26,0.2); outline-offset: 3px; }
+
+/* =========================================================
+   INFO CARD (overlay on each project)
+   ========================================================= */
+.info-card {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  min-width: 250px;
+  max-width: calc(100% - 28px);
+  padding: 10px 14px 12px;
+  background: rgba(232, 229, 220, 0.85);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-radius: var(--info-radius);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  z-index: 2;
+  pointer-events: none;  /* pass clicks through to the <a> by default */
+}
+
+/* Contenteditable text nodes inside the card intercept pointer events */
+.info-card [contenteditable] {
+  pointer-events: auto;
+  cursor: text;
+  outline: none;
+  border-radius: 2px;
+  min-width: 2px;
+  display: inline-block;
+}
+
+.info-card [contenteditable]:focus {
+  background: rgba(255,255,255,0.35);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+}
+
+.info-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  text-transform: uppercase;
+}
+
+.info-title {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.info-num { opacity: 0.85; }
+
+.info-year {
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+.info-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  opacity: 0.85;
+}
+
+/* Smaller info card for third-width projects */
+.project.third .info-card {
+  min-width: 0;
+  max-width: calc(100% - 28px);
+  padding: 8px 12px 10px;
+}
+
+/* =========================================================
+   RIGHT — FILTERS
+   ========================================================= */
+.filters {
+  position: sticky;
+  top: 36px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  background: var(--pill);
+  border-radius: var(--pill-radius);
+  padding: 5px 6px 5px 16px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.18s;
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+
+.filter:hover { background: var(--pill-hover); }
+
+.filter-label {
+  flex: 1;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.filter-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #c8c5bb;
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+
+.filter.is-active .filter-circle {
+  background: var(--pill-active);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  position: fixed;
+  bottom: 24px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.footer-group {
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.footer-pill {
+  background: var(--pill);
+  border-radius: var(--pill-radius);
+  padding: 6px 16px;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  transition: background 0.18s;
+}
+
+.footer-pill:hover { background: var(--pill-hover); }
+
+.footer-pill[contenteditable] {
+  cursor: text;
+  outline: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 240px 1fr 180px;
+    gap: 40px;
+  }
+  .bio h1 { margin-bottom: 80px; }
+  .project.third { width: calc((100% - var(--gap)) / 2); }
+}
+
+@media (max-width: 860px) {
+  body { padding: 24px 20px 100px; }
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .bio { position: static; }
+  .bio h1 { margin-bottom: 24px; }
+  .filters {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .project.third { width: 100%; }
+  .footer { left: 20px; right: 20px; }
+}
