@@ -19,20 +19,22 @@ const aboutPopupCloseEl = document.getElementById("about-popup-close");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileLayoutQuery = window.matchMedia("(max-width: 860px)");
 // Carousel motion tuning: input moves the target, then the deck glides toward it.
-const DECK_EASE = 0.26;
-const DECK_SNAP_EASE = 0.2;
-const SNAP_DISTANCE = 0.004;
-const CLONE_RANGE = 5;
-const TOUCH_STEP_THRESHOLD = 18;
-const WHEEL_PROGRESS_FACTOR = 0.0042;
-const WHEEL_SNAP_DELAY = 260;
-const WHEEL_SNAP_DURATION = 420;
-const MIN_WHEEL_DELTA = 0.05;
-const WHEEL_LINE_HEIGHT = 28;
-const WHEEL_DELTA_LINE = 1;
-const WHEEL_DELTA_PAGE = 2;
-const MAX_QUEUED_STEPS = 3;
-const INTRO_SWIRL_DURATION = 1450;
+const DECK_EASE = 0.8; /*How quickly the visible carousel catches up to the target position each animation frame. Higher = more responsive/snappier. Lower = floatier/slower.*/
+const DECK_SNAP_EASE = 5; /*Catch-up speed when the carousel is near a snapped project position. Higher = finishes settling faster.*/
+const SNAP_DISTANCE = 0.008; /*How close a project panel must be to center before the bottom title is allowed to update. Lower = title changes later. Higher = title changes earlier.*/
+const TITLE_SYNC_DISTANCE = 0.18;/*How close a project panel must be to center before the bottom title is allowed to update. Lower = title changes later. Higher = title changes earlier.*/
+const TITLE_CHANGE_DELAY = 70; /*Delay in milliseconds for the title fade/change animation. Lower = faster text swap.*/
+const CLONE_RANGE = 5; /*How many duplicate sets of projects are rendered on each side to make the carousel feel infinite/looping.*/
+const TOUCH_STEP_THRESHOLD = 18; /*Minimum touch drag distance in pixels before it counts as an intentional swipe.*/
+const WHEEL_PROGRESS_FACTOR = 0.0042; /*How much scroll wheel movement changes the carousel position. Higher = scrolling moves through projects faster.*/
+const WHEEL_SNAP_DELAY = 105; /*How long after scrolling stops before the carousel snaps to the nearest project. Higher = waits longer. Lower = settles sooner.*/
+const WHEEL_SNAP_DURATION = 300; /*How long the snap animation takes in milliseconds. Higher = slower/smoother. Lower = quicker.*/
+const MIN_WHEEL_DELTA = 0.05; /*Tiny wheel movements below this are ignored to prevent jitter.*/
+const WHEEL_LINE_HEIGHT = 28; /*Converts “line-based” wheel events into pixels. Mostly for browser/device compatibility.*/
+const WHEEL_DELTA_LINE = 1; /*Browser constant meaning wheel delta is measured in lines.*/
+const WHEEL_DELTA_PAGE = 2; /*Browser constant meaning wheel delta is measured in pages.*/
+const MAX_QUEUED_STEPS = 3; /*Max number of keyboard/project-step moves that can queue up while the carousel is still animating.*/
+const INTRO_SWIRL_DURATION = 1450; /*How long the intro carousel swirl animation lasts, in milliseconds.*/
 
 let visibleProjects = [];
 let animationFrame = 0;
@@ -146,7 +148,6 @@ function renderIndexProjects() {
       <span>Type</span>
       <span>Year</span>
       <span>Field</span>
-      <span>Open</span>
     </div>
     ${PROJECT_DATA.map((project, index) => {
     const statement = getPlainText(project.detail?.statement || "");
@@ -163,7 +164,6 @@ function renderIndexProjects() {
           <span>${escapeHTML(type)}</span>
           <span>${escapeHTML(year)}</span>
           <span>${escapeHTML(field)}</span>
-          <span>[View]</span>
           ${statement ? `<p class="index-work-note">${escapeHTML(statement)}</p>` : ""}
         </a>
       </article>
@@ -320,7 +320,7 @@ function updateActiveTitle(project) {
   titleFrame = window.setTimeout(() => {
     activeTitleEl.textContent = nextTitle;
     activeTitleEl.classList.remove("is-changing");
-  }, 90);
+  }, TITLE_CHANGE_DELAY);
 }
 
 function renderDeck(progress) {
@@ -411,7 +411,9 @@ function renderDeck(progress) {
     }
   });
 
-  updateActiveTitle(closestProject);
+  if (closestDistance <= TITLE_SYNC_DISTANCE) {
+    updateActiveTitle(closestProject);
+  }
 }
 
 function animateDeck() {
