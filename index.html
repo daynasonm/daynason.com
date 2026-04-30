@@ -1,342 +1,54 @@
-<!-- ============================================================
-     PASTE THIS ENTIRE FILE INTO CARGO'S "HTML" FIELD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dayna Son — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="cms.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="home-page">
+  <main class="home-shell" id="works" aria-label="Selected work">
+    <section class="projects" id="projects">
+      <div class="deck-stage" id="deck-stage"></div>
+      <p class="empty-state" id="empty-state">NO WORK FOUND</p>
+    </section>
 
-     HOW THIS WORKS:
-     • Each project is a single <a class="project ..."> block.
-       Copy a block to add a new project. Delete to remove.
-     • The filter sidebar on the right is BUILT AUTOMATICALLY
-       by the <script> at the bottom — counts come from
-       the data-cats attributes on each project block.
-     • Drag any project card (grab the image area) to reorder.
-     • Click any text in the info overlay or bio to edit it.
-     ============================================================ -->
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a class="nav-brand" href="index.html">DAYNA SON</a>
+      <h1 class="active-work-title" id="active-project-title">BIVALVES</h1>
+      <span class="nav-links">
+        <a href="#work-index" id="index-toggle" aria-controls="work-index" aria-expanded="false">ARCHIVE</a>
+        <a href="#about-popup" id="about-toggle" aria-controls="about-popup" aria-expanded="false">ABOUT</a>
+      </span>
+    </nav>
 
-<div class="layout">
+    <aside class="index-popup" id="work-index" aria-hidden="true">
+      <header class="index-popup-header">
+        <p>CHOSEN WORKS</p>
+        <button class="index-popup-close" type="button" id="index-popup-close">(Close)</button>
+      </header>
 
-  <!-- ============== LEFT: BIO ============== -->
-  <aside class="bio">
-    <h1 contenteditable="true" spellcheck="false">DAYNA SON</h1>
+      <div class="index-work-list" id="index-work-list"></div>
 
-    <div class="bio-section" contenteditable="true" spellcheck="false">
-      <p>Currently a full-time student <a href="#">@ParsonsCD</a>.</p>
-      <p>Previously <a href="#">@Alta</a>, an AI fashion tech startup.</p>
-      <p>Based in Manhattan, NYC.</p>
-    </div>
+      <button class="index-back-top" type="button" id="index-back-top">Back to top</button>
+    </aside>
 
-    <div class="bio-section" contenteditable="true" spellcheck="false">
-      At the moment, I see myself as a graphic designer interested in working on research and concept-driven projects that balance design with art. I aim to find a way to communicate ideas with an additional refreshing touch, like a splash of lime.
-    </div>
-
-    <div class="bio-section" contenteditable="true" spellcheck="false">
-      Atom is a page where I document my research and archives. <a href="#">Click here to explore</a>
-    </div>
-
-    <div class="bio-section" contenteditable="true" spellcheck="false">
-      <a href="#">Click here for CV</a>
-    </div>
-
-    <div class="bio-section" contenteditable="true" spellcheck="false">
-      <p>Reach out: daynasonm@gmail.com</p>
-      <p>Instagram: <a href="https://instagram.com/dotdotlime" target="_blank">@dotdotlime</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/daynason" target="_blank">daynason</a></p>
-    </div>
-  </aside>
-
-
-  <!-- ============================================================
-       CENTER: PROJECTS
-
-       PROJECT BLOCK TEMPLATE — duplicate to add a new project:
-
-         <a class="project SIZE" data-cats="CAT|CAT|CAT" href="LINK" draggable="true">
-           IMAGE_OR_VIDEO
-           <div class="info-card" draggable="false">
-             <div class="info-top">
-               <div class="info-title">
-                 <span class="info-num" contenteditable="true" spellcheck="false">NUM</span>
-                 <span class="info-name" contenteditable="true" spellcheck="false">TITLE</span>
-               </div>
-               <span class="info-year" contenteditable="true" spellcheck="false">YEAR</span>
-             </div>
-             <div class="info-bottom">
-               <span contenteditable="true" spellcheck="false">LEFT_TAG</span>
-               <span contenteditable="true" spellcheck="false">RIGHT_TAG</span>
-             </div>
-           </div>
-         </a>
-
-       SIZE options:    "wide"  → full column, 16:9
-                        "third" → 1/3 column, 16:9 (three fit per row)
-
-       data-cats:       Pipe-separated list. Must match category names
-                        in the CATEGORIES array down in the <script>.
-
-       IMAGE_OR_VIDEO — three options:
-         A) Cargo media-item (drag image from Cargo's library):
-            <media-item hash="I0123..."></media-item>
-         B) Cargo URL (upload to a hidden page, copy the URL):
-            <img src="https://files.cargocollective.com/.../img.jpg" draggable="false" />
-         C) External video:
-            <video src="VIDEO_URL.mp4" autoplay muted loop playsinline draggable="false"></video>
-       ============================================================ -->
-  <main class="projects" id="projects">
-
-    <!-- ============== PROJECT 01 ============== -->
-    <a class="project wide" data-cats="Print|Design|Research" href="#" draggable="true">
-      <img src="https://picsum.photos/seed/bivalves22/1600/900" alt="Bivalves" draggable="false" />
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">01</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">Bivalves</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2025</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Book Design</span>
-          <span contenteditable="true" spellcheck="false"></span>
-        </div>
+    <aside class="about-popup" id="about-popup" aria-hidden="true">
+      <div class="about-popup-links">
+        <a href="mailto:daynasonm@gmail.com">daynasonm@gmail.com</a>
+        <a href="https://instagram.com/dotdotlime" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/in/dayna-son/" target="_blank" rel="noreferrer">LinkedIn</a>
       </div>
-    </a>
 
-    <!-- ============== PROJECT 02 ============== -->
-    <a class="project wide" data-cats="Print|Design|Campaign" href="#" draggable="true">
-      <img src="https://picsum.photos/seed/olympic88/1600/900" alt="LA Olympic Poster" draggable="false" />
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">02</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">LA Olympic Poster</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2025</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Print</span>
-          <span contenteditable="true" spellcheck="false">Link</span>
-        </div>
-      </div>
-    </a>
+      <p>Currently a full-time student <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noreferrer">@ParsonsCD</a>. Previously <a href="https://www.altamoda.ai/" target="_blank" rel="noreferrer">@Alta</a>, an AI fashion tech startup. Based in Manhattan, NYC.</p>
 
-    <!-- ============== PROJECT 03 ============== -->
-    <a class="project third" data-cats="Print|Design|Research" href="#" draggable="true">
-      <img src="https://picsum.photos/seed/sansa14/900/506" alt="Sansa" draggable="false" />
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">03</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">Sansa</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2025</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Book Design</span>
-          <span contenteditable="true" spellcheck="false"></span>
-        </div>
-      </div>
-    </a>
+      <p>At the moment, I see myself as a graphic designer interested in working on research and concept-driven projects that balance design with art. I aim to find a way to communicate ideas with an additional refreshing touch, like a splash of lime.</p>
 
-    <!-- ============== PROJECT 04 ============== -->
-    <a class="project third" data-cats="App|Development|Experiment|Prototype" href="#" draggable="true">
-      <img src="https://picsum.photos/seed/youtubetot7/900/506" alt="YouTube This or That" draggable="false" />
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">04</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">YT This or That</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2025</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Web App</span>
-          <span contenteditable="true" spellcheck="false">Link</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- ============== PROJECT 05 ============== -->
-    <a class="project third" data-cats="Website|Development|Identity" href="#" draggable="true">
-      <img src="https://picsum.photos/seed/theatres11/900/506" alt="Theatres in NYC" draggable="false" />
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">05</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">Theatres in NYC</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2025</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Webflow</span>
-          <span contenteditable="true" spellcheck="false">Link</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- ============== PROJECT 06 ============== -->
-    <a class="project wide" data-cats="Website|Tool|Development|Experiment" href="#" draggable="true">
-      <img src="https://picsum.photos/seed/wordpiano33/1600/900" alt="Word Piano" draggable="false" />
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">06</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">Word Piano</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2024</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Web Tool</span>
-          <span contenteditable="true" spellcheck="false">Link</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- ============== PROJECT 07 — VIDEO EXAMPLE ============== -->
-    <a class="project wide" data-cats="UI|Design|App|Identity" href="#" draggable="true">
-      <video src="https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-2952/1080p.mp4" autoplay muted loop playsinline draggable="false"></video>
-      <div class="info-card" draggable="false">
-        <div class="info-top">
-          <div class="info-title">
-            <span class="info-num" contenteditable="true" spellcheck="false">07</span>
-            <span class="info-name" contenteditable="true" spellcheck="false">Alta</span>
-          </div>
-          <span class="info-year" contenteditable="true" spellcheck="false">2025</span>
-        </div>
-        <div class="info-bottom">
-          <span contenteditable="true" spellcheck="false">Internship</span>
-          <span contenteditable="true" spellcheck="false"></span>
-        </div>
-      </div>
-    </a>
-
+      <button class="about-popup-close" type="button" id="about-popup-close">(Close)</button>
+    </aside>
   </main>
-
-
-  <!-- ============== RIGHT: FILTERS (auto-generated) ============== -->
-  <aside class="filters" id="filters"></aside>
-
-</div>
-
-
-<!-- ============== FOOTER ============== -->
-<footer class="footer">
-  <div class="footer-group">
-    <span class="footer-pill" contenteditable="true" spellcheck="false">@Dayna Son 2026</span>
-  </div>
-  <div class="footer-group">
-    <a class="footer-pill" href="https://instagram.com/dotdotlime" target="_blank">@dotdotlime</a>
-    <a class="footer-pill" href="https://dotdotlime.com" target="_blank">dotdotlime.com</a>
-  </div>
-</footer>
-
-
-<!-- ============================================================
-     JAVASCRIPT
-     The <script> tag IS the JS — Cargo treats it as HTML.
-     ============================================================ -->
-<script>
-/* The categories that appear in your filter sidebar.
-   Edit this list to add or remove filter options.
-   Counts auto-compute from data-cats on your project blocks. */
-const CATEGORIES = [
-  "App", "Campaign", "Consulting", "Design", "Development",
-  "E-commerce", "Experiment", "Identity", "Print", "Production",
-  "Prototype", "Research", "Tool", "UI", "Website"
-];
-
-const activeFilters = new Set();
-
-function buildFilters() {
-  const counts = {};
-  CATEGORIES.forEach(c => counts[c] = 0);
-  document.querySelectorAll('.project').forEach(p => {
-    (p.dataset.cats || '').split('|').forEach(c => {
-      if (counts[c] !== undefined) counts[c]++;
-    });
-  });
-
-  const el = document.getElementById('filters');
-  if (!el) return;
-
-  el.innerHTML = CATEGORIES.map(cat => `
-    <div class="filter ${activeFilters.has(cat) ? 'is-active' : ''}" data-cat="${cat}">
-      <span class="filter-label">${cat} (${counts[cat]})</span>
-      <span class="filter-circle"></span>
-    </div>
-  `).join('');
-
-  el.querySelectorAll('.filter').forEach(f => {
-    f.addEventListener('click', () => {
-      const cat = f.dataset.cat;
-      if (activeFilters.has(cat)) activeFilters.delete(cat);
-      else activeFilters.add(cat);
-      buildFilters();
-      applyFilters();
-    });
-  });
-}
-
-function applyFilters() {
-  document.querySelectorAll('.project').forEach(el => {
-    const cats = (el.dataset.cats || '').split('|');
-    const match = activeFilters.size === 0
-      || [...activeFilters].some(f => cats.includes(f));
-    el.classList.toggle('is-hidden', !match);
-  });
-}
-
-/* ── Drag-and-drop reordering ─────────────────────────────────
-   Drag the image area of any project card to reorder.
-   Clicking on the info overlay text opens it for editing instead.
-   ──────────────────────────────────────────────────────────── */
-let dragSrc = null;
-const projectsEl = document.getElementById('projects');
-
-projectsEl.addEventListener('dragstart', e => {
-  /* If the drag originates inside the info card, cancel it
-     so the user can select and edit text normally. */
-  if (e.target.closest('.info-card')) { e.preventDefault(); return; }
-
-  dragSrc = e.target.closest('.project');
-  if (!dragSrc) return;
-
-  e.dataTransfer.effectAllowed = 'move';
-  /* Delay adding the class so the browser snapshot is taken first */
-  setTimeout(() => { if (dragSrc) dragSrc.classList.add('dragging'); }, 0);
-});
-
-projectsEl.addEventListener('dragend', () => {
-  if (dragSrc) { dragSrc.classList.remove('dragging'); dragSrc = null; }
-  projectsEl.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-});
-
-projectsEl.addEventListener('dragover', e => {
-  e.preventDefault();
-  const over = e.target.closest('.project');
-  if (!over || over === dragSrc) return;
-  projectsEl.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-  over.classList.add('drag-over');
-  e.dataTransfer.dropEffect = 'move';
-});
-
-projectsEl.addEventListener('dragleave', e => {
-  const leaving = e.target.closest('.project');
-  if (leaving && !leaving.contains(e.relatedTarget)) {
-    leaving.classList.remove('drag-over');
-  }
-});
-
-projectsEl.addEventListener('drop', e => {
-  e.preventDefault();
-  const target = e.target.closest('.project');
-  if (!target || !dragSrc || target === dragSrc) return;
-
-  const all = [...projectsEl.querySelectorAll('.project')];
-  const si   = all.indexOf(dragSrc);
-  const ti   = all.indexOf(target);
-  projectsEl.insertBefore(dragSrc, si < ti ? target.nextSibling : target);
-
-  target.classList.remove('drag-over');
-  buildFilters();
-});
-
-buildFilters();
-</script>
+</body>
+</html>
+ 
