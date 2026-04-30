@@ -38,7 +38,7 @@ function renderIndex(project) {
   const ids = ["detail-hero", ...sections.slice(1).map((_, i) => `section-${i}`)];
 
   indexEl.innerHTML = sections.map(([label], i) => `
-    <a class="index-chip" href="#${ids[i]}">${escapeHTML(label)}</a>
+    <a class="index-chip" href="#${ids[i]}">${escapeHTML(label.toLowerCase() === "print" ? "Execution" : label)}</a>
   `).join("");
 }
 
@@ -48,24 +48,21 @@ function renderHero(project) {
   if (!heroEl || !heroSection) return;
 
   const detail = getDetail(project);
-  const hero = detail.hero || {
-    kind: "placeholder",
-    text: "image of the project\ngoes here (or video)",
-    background: "#dea7a8",
-  };
-  const background = hero.background || detail.background || "#dea7a8";
+  const hero = detail.hero || {};
+  const cover = getCover(project);
+  const heroMedia = hero.kind && hero.kind !== "placeholder" ? hero : cover;
 
-  heroSection.style.background = background;
+  heroSection.style.background = "var(--paper)";
   heroEl.className = "hero-media";
 
-  if (hero.kind === "image") {
-    heroEl.innerHTML = `<img src="${escapeHTML(hero.src || getCover(project).src)}" alt="${escapeHTML(hero.alt || project.title)}" />`;
+  if (heroMedia.kind === "image" && heroMedia.src) {
+    heroEl.innerHTML = `<img src="${escapeHTML(heroMedia.src)}" alt="${escapeHTML(heroMedia.alt || project.title)}" />`;
     return;
   }
 
-  if (hero.kind === "video") {
+  if (heroMedia.kind === "video" && heroMedia.src) {
     heroEl.innerHTML = `
-      <video src="${escapeHTML(hero.src || getCover(project).src)}" ${hero.poster ? `poster="${escapeHTML(hero.poster)}"` : ""} autoplay muted loop playsinline controls></video>
+      <video src="${escapeHTML(heroMedia.src)}" ${heroMedia.poster ? `poster="${escapeHTML(heroMedia.poster)}"` : ""} autoplay muted loop playsinline preload="metadata"></video>
     `;
     return;
   }
