@@ -351,7 +351,7 @@ button {
   background: #050505;
   color: #d7d7d7;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1.18;
   letter-spacing: 0;
@@ -424,7 +424,7 @@ button {
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   background: #050505;
   color: #777;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -437,8 +437,9 @@ button {
   min-height: 104px;
   margin-inline: calc(var(--index-popup-pad) * -1);
   padding: 13px var(--index-popup-pad) 18px;
+  align-items: start;
   color: inherit;
-  row-gap: 8px;
+  row-gap: 7px;
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
@@ -461,6 +462,13 @@ button {
 
 .index-work-row span:nth-child(3) {
   font-weight: 700;
+}
+
+.index-work-row span:nth-child(1),
+.index-work-row span:nth-child(4),
+.index-work-row span:nth-child(5),
+.index-work-row span:nth-child(6) {
+  align-self: center;
 }
 
 .index-work-row span:nth-child(1),
@@ -491,7 +499,7 @@ button {
   max-width: 56ch;
   margin: 0;
   color: #808080;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.2;
   transition: color var(--transition-fast);
 }
@@ -671,7 +679,7 @@ button {
     --index-popup-header-height: 40px;
     --index-grid-columns: 36px 52px minmax(0, 1fr) 58px;
     height: 76vh;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .index-popup-close {
@@ -687,7 +695,7 @@ button {
 
   .index-work-row {
     gap: 10px;
-    min-height: 82px;
+    min-height: 76px;
     padding-block: 12px 14px;
   }
 
@@ -706,6 +714,7 @@ button {
   }
 
   .index-work-note {
+    display: none;
     grid-column: 3 / 5;
     margin: 0;
   }
