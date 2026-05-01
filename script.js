@@ -158,13 +158,15 @@ function renderIndexProjects() {
     return `
       <article class="index-work" data-index="${index}">
         <a class="index-work-row" href="${escapeHTML(getProjectUrl(project))}">
-          <span>${formatNumber(index + 1)}</span>
+          <span class="index-work-number">${formatNumber(index + 1)}</span>
           <span class="index-work-thumb">${renderIndexThumbnail(project)}</span>
-          <span>${escapeHTML(project.title || "Untitled")}</span>
-          <span>${escapeHTML(type)}</span>
-          <span>${escapeHTML(year)}</span>
-          <span>${escapeHTML(field)}</span>
-          ${statement ? `<p class="index-work-note">${escapeHTML(statement)}</p>` : ""}
+          <span class="index-work-copy">
+            <span class="index-work-title">${escapeHTML(project.title || "Untitled")}</span>
+            ${statement ? `<span class="index-work-note">${escapeHTML(statement)}</span>` : ""}
+          </span>
+          <span class="index-work-type">${escapeHTML(type)}</span>
+          <span class="index-work-year">${escapeHTML(year)}</span>
+          <span class="index-work-field">${escapeHTML(field)}</span>
         </a>
       </article>
     `;
