@@ -19,16 +19,16 @@ const aboutPopupCloseEl = document.getElementById("about-popup-close");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileLayoutQuery = window.matchMedia("(max-width: 860px)");
 // Carousel motion tuning: input moves the target, then the deck glides toward it.
-const DECK_EASE = 0.8; /*How quickly the visible carousel catches up to the target position each animation frame. Higher = more responsive/snappier. Lower = floatier/slower.*/
-const DECK_SNAP_EASE = 5; /*Catch-up speed when the carousel is near a snapped project position. Higher = finishes settling faster.*/
+const DECK_EASE = 0.18; /*How quickly the visible carousel catches up to the target position each animation frame. Higher = more responsive/snappier. Lower = floatier/slower.*/
+const DECK_SNAP_EASE = 0.28; /*Catch-up speed when the carousel is near a snapped project position. Higher = finishes settling faster.*/
 const SNAP_DISTANCE = 0.008; /*How close a project panel must be to center before the bottom title is allowed to update. Lower = title changes later. Higher = title changes earlier.*/
 const TITLE_SYNC_DISTANCE = 0.18;/*How close a project panel must be to center before the bottom title is allowed to update. Lower = title changes later. Higher = title changes earlier.*/
 const TITLE_CHANGE_DELAY = 70; /*Delay in milliseconds for the title fade/change animation. Lower = faster text swap.*/
 const CLONE_RANGE = 5; /*How many duplicate sets of projects are rendered on each side to make the carousel feel infinite/looping.*/
 const TOUCH_STEP_THRESHOLD = 18; /*Minimum touch drag distance in pixels before it counts as an intentional swipe.*/
 const WHEEL_PROGRESS_FACTOR = 0.0042; /*How much scroll wheel movement changes the carousel position. Higher = scrolling moves through projects faster.*/
-const WHEEL_SNAP_DELAY = 105; /*How long after scrolling stops before the carousel snaps to the nearest project. Higher = waits longer. Lower = settles sooner.*/
-const WHEEL_SNAP_DURATION = 300; /*How long the snap animation takes in milliseconds. Higher = slower/smoother. Lower = quicker.*/
+const WHEEL_SNAP_DELAY = 160; /*How long after scrolling stops before the carousel snaps to the nearest project. Higher = waits longer. Lower = settles sooner.*/
+const WHEEL_SNAP_DURATION = 440; /*How long the snap animation takes in milliseconds. Higher = slower/smoother. Lower = quicker.*/
 const MIN_WHEEL_DELTA = 0.05; /*Tiny wheel movements below this are ignored to prevent jitter.*/
 const WHEEL_LINE_HEIGHT = 28; /*Converts “line-based” wheel events into pixels. Mostly for browser/device compatibility.*/
 const WHEEL_DELTA_LINE = 1; /*Browser constant meaning wheel delta is measured in lines.*/
@@ -153,7 +153,7 @@ function renderIndexProjects() {
     const statement = getPlainText(project.detail?.statement || "");
     const type = project.type || "Project";
     const year = project.year || "----";
-    const field = Array.isArray(project.categories) && project.categories.length ? project.categories[0] : "Work";
+    const field = Array.isArray(project.categories) && project.categories.length ? project.categories.join(", ") : "Work";
 
     return `
       <article class="index-work" data-index="${index}">
@@ -462,7 +462,12 @@ function cancelWheelSnapAnimation() {
 function startWheelSnapAnimation() {
   cancelWheelSnapAnimation();
 
-  const fromProgress = targetProgress;
+  if (smoothingFrame) {
+    window.cancelAnimationFrame(smoothingFrame);
+    smoothingFrame = 0;
+  }
+
+  const fromProgress = currentProgress;
   const toProgress = Math.round(targetProgress);
 
   if (Math.abs(toProgress - fromProgress) < SNAP_DISTANCE) {
@@ -673,9 +678,8 @@ window.addEventListener("wheel", (event) => {
 
   const boundedDelta = clamp(primaryDelta, -220, 220);
   targetProgress += boundedDelta * WHEEL_PROGRESS_FACTOR;
-  currentProgress = targetProgress;
   normalizeLoopBounds();
-  renderDeck(currentProgress);
+  requestDeckUpdate();
 
   if (wheelSnapFrame) window.clearTimeout(wheelSnapFrame);
   wheelSnapFrame = window.setTimeout(() => {

@@ -689,13 +689,13 @@ button {
   .index-popup {
     --index-popup-pad: 12px;
     --index-popup-header-height: 40px;
-    --index-grid-columns: 36px 72px minmax(0, 1fr) 54px 58px;
+    --index-grid-columns: 36px 72px minmax(0, 1fr) 50px clamp(24px, 5vw, 44px) 76px;
     height: 76vh;
     font-size: 13px;
   }
 
   .index-popup-close {
-    grid-column: 5;
+    grid-column: 6;
     justify-self: end;
     text-align: right;
     text-indent: 0;
@@ -703,6 +703,7 @@ button {
 
   .index-table-head {
     display: grid;
+    gap: 10px;
     font-size: 10px;
   }
 
@@ -712,10 +713,16 @@ button {
 
   .index-table-head span:nth-child(5) {
     grid-column: 4;
+    width: 100%;
+    justify-self: stretch;
+    text-align: right;
   }
 
   .index-table-head span:nth-child(6) {
-    grid-column: 5;
+    grid-column: 6;
+    width: 100%;
+    justify-self: stretch;
+    text-align: left;
   }
 
   .index-work-row {
@@ -742,12 +749,18 @@ button {
 
   .index-work-year {
     grid-column: 4;
+    width: 100%;
+    justify-self: stretch;
+    text-align: right;
   }
 
   .index-work-field {
-    grid-column: 5;
-    justify-self: end;
-    text-align: right;
+    grid-column: 6;
+    width: 100%;
+    justify-self: stretch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
   }
 
   .index-work-note {

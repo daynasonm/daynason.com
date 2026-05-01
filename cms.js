@@ -27,9 +27,39 @@ window.PORTFOLIO_CMS = {
   },
 
   projects: [
+
+    {
+      id: "alta",
+      number: "01",
+      title: "Alta",
+      year: "2025",
+      type: "Brand assets, Social content",
+      categories: ["Branding", "Content Creation"],
+      cover: {
+        kind: "video",
+        src: "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-2952/1080p.mp4",
+        poster: "https://picsum.photos/seed/alta77/1800/1013",
+        alt: "Alta internship work",
+      },
+      detail: {
+        domain: "alta.systems",
+        sections: [["Brief", "DS-07"], ["Projects", "DS-10"], ["Executions", "DS-13"]],
+        statement: 'Product and interface work for an AI fashion technology team, balancing utility with a lightweight <mark>visual system</mark>.',
+        board: [
+          { kind: "image", src: "https://picsum.photos/seed/alta77/1800/1013", title: "Product surface", cols: 5, rows: 2 },
+          { kind: "video", src: "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-2952/1080p.mp4", poster: "https://picsum.photos/seed/alta-video/1200/900", title: "Motion demo", cols: 4, rows: 2 },
+          { kind: "color", color: "#ef604f", title: "UI state", cols: 3, rows: 1 },
+          { kind: "color", color: "#a0d8cc", title: "Identity pass", cols: 4, rows: 1 },
+        ],
+        content: [
+          { kind: "text", eyebrow: "Internship", title: "A flexible system for product work.", body: ["Add approved screenshots, role details, outcomes, and responsibilities here."] },
+        ],
+      },
+    },
+
     {
       id: "bivalves",
-      number: "01",
+      number: "02",
       title: "Bivalves",
       year: "2025",
       type: "Book Design",
@@ -200,33 +230,6 @@ window.PORTFOLIO_CMS = {
       },
     },
 
-    {
-      id: "alta",
-      number: "07",
-      title: "Alta",
-      year: "2025",
-      type: "Internship",
-      categories: ["UI", "Design", "App", "Identity"],
-      cover: {
-        kind: "video",
-        src: "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-2952/1080p.mp4",
-        poster: "https://picsum.photos/seed/alta77/1800/1013",
-        alt: "Alta internship work",
-      },
-      detail: {
-        domain: "alta.systems",
-        sections: [["Brief", "DS-07"], ["Product", "DS-10"], ["UI", "DS-13"], ["Identity", "DS-17"]],
-        statement: 'Product and interface work for an AI fashion technology team, balancing utility with a lightweight <mark>visual system</mark>.',
-        board: [
-          { kind: "image", src: "https://picsum.photos/seed/alta77/1800/1013", title: "Product surface", cols: 5, rows: 2 },
-          { kind: "video", src: "https://cdn.coverr.co/videos/coverr-typing-on-a-laptop-2952/1080p.mp4", poster: "https://picsum.photos/seed/alta-video/1200/900", title: "Motion demo", cols: 4, rows: 2 },
-          { kind: "color", color: "#ef604f", title: "UI state", cols: 3, rows: 1 },
-          { kind: "color", color: "#a0d8cc", title: "Identity pass", cols: 4, rows: 1 },
-        ],
-        content: [
-          { kind: "text", eyebrow: "Internship", title: "A flexible system for product work.", body: ["Add approved screenshots, role details, outcomes, and responsibilities here."] },
-        ],
-      },
-    },
+    
   ],
 };
